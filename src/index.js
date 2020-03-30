@@ -22,12 +22,10 @@ function dumpEnum(src, dst) {
     let { id, name } = sorted[i]
 
     // NOTE (alkurbatov): We use 'INVALID' instead.
-    if (id === 0)
-      continue
+    if (id === 0) continue
 
     // NOTE (alkurbatov): Some types start with a number.
-    if (name[0] >= '0' && name[0] <= '9')
-      name = '_' + name
+    if (name[0] >= '0' && name[0] <= '9') name = '_' + name
 
     fs.appendFileSync(dst, `    ${name} = ${id},${EOL}`)
   }
@@ -37,19 +35,15 @@ function generateUnits(src, dst) {
   fs.appendFileSync(dst, `enum class UNIT_TYPEID {${EOL}`)
   fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
-  const transformed = src.Units.map(it => {
+  const transformed = src.Units.map((it) => {
     let name = it.name.toUpperCase()
 
     // NOTE (alkurbatov): We need these prefixes for backward compatibility
     // with older versions of the API.
-    if (neutralUnits.has(name))
-      name = 'NEUTRAL_' + name
-    else if (protossUnits.has(name))
-      name = 'PROTOSS_' + name
-    else if (terranUnits.has(name))
-      name = 'TERRAN_' + name
-    else if (zergUnits.has(name))
-      name = 'ZERG_' + name
+    if (neutralUnits.has(name)) name = 'NEUTRAL_' + name
+    else if (protossUnits.has(name)) name = 'PROTOSS_' + name
+    else if (terranUnits.has(name)) name = 'TERRAN_' + name
+    else if (zergUnits.has(name)) name = 'ZERG_' + name
 
     return { id: it.id, name: name }
   })
@@ -62,7 +56,7 @@ function generateUpgrades(src, dst) {
   fs.appendFileSync(dst, `enum class UPGRADE_ID {${EOL}`)
   fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
-  const transformed = src.Units.map(it => {
+  const transformed = src.Units.map((it) => {
     return { id: it.id, name: it.name.toUpperCase() }
   })
 
@@ -74,7 +68,7 @@ function generateBuffs(src, dst) {
   fs.appendFileSync(dst, `enum class BUFF_ID {${EOL}`)
   fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
-  const transformed = src.Units.map(it => {
+  const transformed = src.Units.map((it) => {
     return { id: it.id, name: it.name.toUpperCase() }
   })
 
@@ -126,5 +120,4 @@ function main() {
   fs.closeSync(dst)
 }
 
-if (require.main === module)
-  main()
+if (require.main === module) main()
