@@ -1,5 +1,8 @@
 {
-  "editor.rulers": [
-    { "column": 80, "color": "#808080" }
-  ]
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "git.ignoreLimitWarning": true
 }
