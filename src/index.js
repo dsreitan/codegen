@@ -21,7 +21,7 @@ function dumpEnum(src, dst) {
     let { name } = sorted[i]
 
     // NOTE (alkurbatov): We use 'INVALID' instead.
-    if (id === 0) continue
+    if (id === 0) name = 'INVALID'
 
     // NOTE (alkurbatov): Some types start with a number.
     if (name[0] >= '0' && name[0] <= '9') name = `_${name}`
@@ -32,7 +32,6 @@ function dumpEnum(src, dst) {
 
 function generateUnits(src, dst) {
   fs.appendFileSync(dst, `enum class UNIT_TYPEID {${EOL}`)
-  fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
   const transformed = src.Units.map((it) => {
     let name = it.name.toUpperCase()
@@ -53,7 +52,6 @@ function generateUnits(src, dst) {
 
 function generateUpgrades(src, dst) {
   fs.appendFileSync(dst, `enum class UPGRADE_ID {${EOL}`)
-  fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
   const transformed = src.Units.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
 
@@ -63,7 +61,6 @@ function generateUpgrades(src, dst) {
 
 function generateBuffs(src, dst) {
   fs.appendFileSync(dst, `enum class BUFF_ID {${EOL}`)
-  fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
   const transformed = src.Units.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
 
