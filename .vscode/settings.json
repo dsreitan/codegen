@@ -1,6 +1,7 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.rulers": [{ "column": 120, "color": "#808080" }],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
