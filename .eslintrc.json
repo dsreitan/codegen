@@ -14,8 +14,22 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
+  "plugins": ["jest"],
   "rules": {
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline"
+      }
+    ],
+    "curly": [2, "multi"],
     "indent": ["error", 2],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error",
     "linebreak-style": ["error", "unix"],
     "max-len": [
       "error",
@@ -25,16 +39,9 @@
         "ignoreUrls": true
       }
     ],
+    "no-continue": "off",
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
-    "comma-dangle": [
-      "error",
-      {
-        "arrays": "always-multiline",
-        "objects": "always-multiline"
-      }
-    ],
-    "curly": [2, "multi"],
     "space-before-function-paren": [
       "error",
       {
@@ -42,7 +49,6 @@
         "named": "never",
         "asyncArrow": "always"
       }
-    ],
-    "no-continue": "off"
+    ]
   }
 }
