@@ -1,7 +1,5 @@
-'use strict'
-
 const fs = require('fs')
-const EOL = require('os').EOL
+const { EOL } = require('os')
 const _ = require('lodash')
 
 const units = require('./units')
@@ -18,14 +16,15 @@ const zergUnits = new Set(units.Zerg)
 function dumpEnum(src, dst) {
   const sorted = _.sortBy(src, ['name', 'id'])
 
-  for (let i = 0; i < sorted.length; i++) {
-    let { id, name } = sorted[i]
+  for (let i = 0; i < sorted.length; i += 1) {
+    const { id } = sorted[i]
+    let { name } = sorted[i]
 
     // NOTE (alkurbatov): We use 'INVALID' instead.
     if (id === 0) continue
 
     // NOTE (alkurbatov): Some types start with a number.
-    if (name[0] >= '0' && name[0] <= '9') name = '_' + name
+    if (name[0] >= '0' && name[0] <= '9') name = `_${name}`
 
     fs.appendFileSync(dst, `    ${name} = ${id},${EOL}`)
   }
@@ -40,12 +39,12 @@ function generateUnits(src, dst) {
 
     // NOTE (alkurbatov): We need these prefixes for backward compatibility
     // with older versions of the API.
-    if (neutralUnits.has(name)) name = 'NEUTRAL_' + name
-    else if (protossUnits.has(name)) name = 'PROTOSS_' + name
-    else if (terranUnits.has(name)) name = 'TERRAN_' + name
-    else if (zergUnits.has(name)) name = 'ZERG_' + name
+    if (neutralUnits.has(name)) name = `NEUTRAL_${name}`
+    else if (protossUnits.has(name)) name = `PROTOSS_${name}`
+    else if (terranUnits.has(name)) name = `TERRAN_${name}`
+    else if (zergUnits.has(name)) name = `ZERG_${name}`
 
-    return { id: it.id, name: name }
+    return { id: it.id, name }
   })
 
   dumpEnum(transformed, dst)
@@ -56,9 +55,7 @@ function generateUpgrades(src, dst) {
   fs.appendFileSync(dst, `enum class UPGRADE_ID {${EOL}`)
   fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
-  const transformed = src.Units.map((it) => {
-    return { id: it.id, name: it.name.toUpperCase() }
-  })
+  const transformed = src.Units.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
 
   dumpEnum(transformed, dst)
   fs.appendFileSync(dst, `};${EOL}`)
@@ -68,9 +65,7 @@ function generateBuffs(src, dst) {
   fs.appendFileSync(dst, `enum class BUFF_ID {${EOL}`)
   fs.appendFileSync(dst, `    INVALID = 0,${EOL}`)
 
-  const transformed = src.Units.map((it) => {
-    return { id: it.id, name: it.name.toUpperCase() }
-  })
+  const transformed = src.Units.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
 
   dumpEnum(transformed, dst)
   fs.appendFileSync(dst, `};${EOL}`)

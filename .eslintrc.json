@@ -6,9 +6,7 @@
     "node": true,
     "jest": true
   },
-  "extends": [
-    "standard"
-  ],
+  "extends": ["airbnb-base"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -18,30 +16,33 @@
   },
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": [
+    "linebreak-style": ["error", "unix"],
+    "max-len": [
       "error",
-      "unix"
+      120,
+      2,
+      {
+        "ignoreUrls": true
+      }
     ],
-    "max-len": ["error", 120, 2, {
-      "ignoreUrls": true
-    }],
-    "quotes": [
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"],
+    "comma-dangle": [
       "error",
-      "single"
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline"
+      }
     ],
-    "semi": [
-      "error",
-      "never"
-    ],
-    "comma-dangle": ["error", {
-      "arrays": "always-multiline",
-      "objects": "always-multiline"
-    }],
     "curly": [2, "multi"],
-    "space-before-function-paren": ["error", {
-      "anonymous": "always",
-      "named": "never",
-      "asyncArrow": "always"
-    }]
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "no-continue": "off"
   }
 }
