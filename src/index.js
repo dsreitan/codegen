@@ -46,6 +46,15 @@ function generateBuffs(src, dst) {
   fs.appendFileSync(dst, `};${EOL}`)
 }
 
+function generateEffects(src, dst) {
+  fs.appendFileSync(dst, `enum class EFFECT_ID {${EOL}`)
+
+  const transformed = src.Effects.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
+
+  dumpEnum(transformed, dst)
+  fs.appendFileSync(dst, `};${EOL}`)
+}
+
 function main() {
   const dst = fs.openSync('./sc2_typeenums.h', 'w')
 
@@ -54,10 +63,16 @@ function main() {
   fs.appendFileSync(dst, `#include "sc2_types.h"${EOL}`)
   fs.appendFileSync(dst, EOL)
   fs.appendFileSync(dst, `namespace sc2 {${EOL}`)
+  fs.appendFileSync(dst, `enum class UNIT_TYPEID;${EOL}`)
+  fs.appendFileSync(dst, `enum class ABILITY_ID;${EOL}`)
+  fs.appendFileSync(dst, `enum class UPGRADE_ID;${EOL}`)
+  fs.appendFileSync(dst, `enum class BUFF_ID;${EOL}`)
+  fs.appendFileSync(dst, `enum class EFFECT_ID;${EOL}`)
   fs.appendFileSync(dst, `typedef SC2Type<UNIT_TYPEID> UnitTypeID;${EOL}`)
   fs.appendFileSync(dst, `typedef SC2Type<ABILITY_ID> AbilityID;${EOL}`)
   fs.appendFileSync(dst, `typedef SC2Type<UPGRADE_ID> UpgradeID;${EOL}`)
   fs.appendFileSync(dst, `typedef SC2Type<BUFF_ID> BuffID;${EOL}`)
+  fs.appendFileSync(dst, `typedef SC2Type<EFFECT_ID> EffectID;${EOL}`)
   fs.appendFileSync(dst, EOL)
 
   generateUnits(stableIDs, dst)
@@ -67,6 +82,9 @@ function main() {
   fs.appendFileSync(dst, EOL)
 
   generateBuffs(stableIDs, dst)
+  fs.appendFileSync(dst, EOL)
+
+  generateEffects(stableIDs, dst)
   fs.appendFileSync(dst, EOL)
 
   fs.appendFileSync(dst, `//! Converts a UNIT_TYPEID into a string of the same name.${EOL}`)
@@ -83,6 +101,10 @@ function main() {
   fs.appendFileSync(dst, EOL)
   fs.appendFileSync(dst, `//! Converts a BUFF_ID into a string of the same name.${EOL}`)
   fs.appendFileSync(dst, `const char* BuffIDToName(BuffID buff_id);${EOL}`)
+
+  fs.appendFileSync(dst, EOL)
+  fs.appendFileSync(dst, `//! Converts a EFFECT_ID into a string of the same name.${EOL}`)
+  fs.appendFileSync(dst, `const char* EffectIDToName(EffectID buff_id);${EOL}`)
 
   fs.appendFileSync(dst, EOL)
   fs.appendFileSync(dst, `}  // namespace sc2${EOL}`)
