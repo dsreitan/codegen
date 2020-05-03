@@ -31,7 +31,7 @@ function generateUnits(src, dst) {
 function generateUpgrades(src, dst) {
   fs.appendFileSync(dst, `enum class UPGRADE_ID {${EOL}`)
 
-  const transformed = src.Units.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
+  const transformed = src.Upgrades.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
 
   dumpEnum(transformed, dst)
   fs.appendFileSync(dst, `};${EOL}`)
@@ -40,7 +40,7 @@ function generateUpgrades(src, dst) {
 function generateBuffs(src, dst) {
   fs.appendFileSync(dst, `enum class BUFF_ID {${EOL}`)
 
-  const transformed = src.Units.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
+  const transformed = src.Buffs.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
 
   dumpEnum(transformed, dst)
   fs.appendFileSync(dst, `};${EOL}`)
