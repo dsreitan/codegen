@@ -6,6 +6,13 @@
     "node": true,
     "jest": true
   },
+  "settings": {
+    "import/resolver": {
+      "jest": {
+        "jestConfigFile": "./jest.config.js"
+      }
+    }
+  },
   "extends": ["airbnb-base"],
   "globals": {
     "Atomics": "readonly",

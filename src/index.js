@@ -2,29 +2,18 @@ const fs = require('fs')
 const { EOL } = require('os')
 const _ = require('lodash')
 
-const units = require('./units')
+const transform = require('./transform')
 
 // FIXME (alkurbatov): Works for OS X only.
 /* eslint-disable-next-line import/no-absolute-path */
 const stableIDs = require('/Users/alkurbatov/Library/Application Support/Blizzard/StarCraft II/stableid.json')
-
-const neutralUnits = new Set(units.Neutral)
-const protossUnits = new Set(units.Protoss)
-const terranUnits = new Set(units.Terran)
-const zergUnits = new Set(units.Zerg)
 
 function dumpEnum(src, dst) {
   const sorted = _.sortBy(src, ['name', 'id'])
 
   for (let i = 0; i < sorted.length; i += 1) {
     const { id } = sorted[i]
-    let { name } = sorted[i]
-
-    // NOTE (alkurbatov): We use 'INVALID' instead.
-    if (id === 0) name = 'INVALID'
-
-    // NOTE (alkurbatov): Some types start with a number.
-    if (name[0] >= '0' && name[0] <= '9') name = `_${name}`
+    const name = transform.escapeEnumValue({ ...sorted[i] })
 
     fs.appendFileSync(dst, `    ${name} = ${id},${EOL}`)
   }
@@ -33,18 +22,7 @@ function dumpEnum(src, dst) {
 function generateUnits(src, dst) {
   fs.appendFileSync(dst, `enum class UNIT_TYPEID {${EOL}`)
 
-  const transformed = src.Units.map((it) => {
-    let name = it.name.toUpperCase()
-
-    // NOTE (alkurbatov): We need these prefixes for backward compatibility
-    // with older versions of the API.
-    if (neutralUnits.has(name)) name = `NEUTRAL_${name}`
-    else if (protossUnits.has(name)) name = `PROTOSS_${name}`
-    else if (terranUnits.has(name)) name = `TERRAN_${name}`
-    else if (zergUnits.has(name)) name = `ZERG_${name}`
-
-    return { id: it.id, name }
-  })
+  const transformed = src.Units.map(transform.renameForCompatibility)
 
   dumpEnum(transformed, dst)
   fs.appendFileSync(dst, `};${EOL}`)
