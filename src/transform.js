@@ -14,7 +14,7 @@ exports.escapeEnumValue = ({ id, name }) => {
   // NOTE (alkurbatov): Some types start with a number.
   if (name[0] >= '0' && name[0] <= '9') escapedName = `_${name}`
 
-  return escapedName
+  return escapedName.toUpperCase()
 }
 
 exports.renameForCompatibility = (it) => {

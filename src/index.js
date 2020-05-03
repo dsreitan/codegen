@@ -19,40 +19,15 @@ function dumpEnum(src, dst) {
   }
 }
 
+function generateEnum(src, enumName, dst) {
+  fs.appendFileSync(dst, `enum class ${enumName} {${EOL}`)
+  dumpEnum(src, dst)
+  fs.appendFileSync(dst, `};${EOL}`)
+}
+
 function generateUnits(src, dst) {
-  fs.appendFileSync(dst, `enum class UNIT_TYPEID {${EOL}`)
-
-  const transformed = src.Units.map(transform.renameForCompatibility)
-
-  dumpEnum(transformed, dst)
-  fs.appendFileSync(dst, `};${EOL}`)
-}
-
-function generateUpgrades(src, dst) {
-  fs.appendFileSync(dst, `enum class UPGRADE_ID {${EOL}`)
-
-  const transformed = src.Upgrades.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
-
-  dumpEnum(transformed, dst)
-  fs.appendFileSync(dst, `};${EOL}`)
-}
-
-function generateBuffs(src, dst) {
-  fs.appendFileSync(dst, `enum class BUFF_ID {${EOL}`)
-
-  const transformed = src.Buffs.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
-
-  dumpEnum(transformed, dst)
-  fs.appendFileSync(dst, `};${EOL}`)
-}
-
-function generateEffects(src, dst) {
-  fs.appendFileSync(dst, `enum class EFFECT_ID {${EOL}`)
-
-  const transformed = src.Effects.map((it) => ({ id: it.id, name: it.name.toUpperCase() }))
-
-  dumpEnum(transformed, dst)
-  fs.appendFileSync(dst, `};${EOL}`)
+  const transformed = src.map(transform.renameForCompatibility)
+  generateEnum(transformed, 'UNIT_TYPEID', dst)
 }
 
 function main() {
@@ -75,16 +50,16 @@ function main() {
   fs.appendFileSync(dst, `typedef SC2Type<EFFECT_ID> EffectID;${EOL}`)
   fs.appendFileSync(dst, EOL)
 
-  generateUnits(stableIDs, dst)
+  generateUnits(stableIDs.Units, dst)
   fs.appendFileSync(dst, EOL)
 
-  generateUpgrades(stableIDs, dst)
+  generateEnum(stableIDs.Upgrades, 'UPGRADE_ID', dst)
   fs.appendFileSync(dst, EOL)
 
-  generateBuffs(stableIDs, dst)
+  generateEnum(stableIDs.Buffs, 'BUFF_ID', dst)
   fs.appendFileSync(dst, EOL)
 
-  generateEffects(stableIDs, dst)
+  generateEnum(stableIDs.Effects, 'EFFECT_ID', dst)
   fs.appendFileSync(dst, EOL)
 
   fs.appendFileSync(dst, `//! Converts a UNIT_TYPEID into a string of the same name.${EOL}`)

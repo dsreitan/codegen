@@ -1,10 +1,15 @@
 const { escapeEnumValue } = require('transform')
 
+test('Name is converted to uppercase', () => {
+  expect(escapeEnumValue({ id: 1, name: 'Marauder' })).toEqual('MARAUDER')
+  expect(escapeEnumValue({ id: 1, name: 'MarineShield' })).toEqual('MARINESHIELD')
+})
+
 test('Transform id == 0 to INVALID', () => {
   expect(escapeEnumValue({ id: 0, name: 'xxx' })).toEqual('INVALID')
 })
 
-test('Escape with _ all etries starting from a number', () => {
+test('Escape with _ all entries starting from a number', () => {
   expect(escapeEnumValue({ id: 1, name: '1AAA' })).toEqual('_1AAA')
   expect(escapeEnumValue({ id: 2, name: '2AAA' })).toEqual('_2AAA')
   expect(escapeEnumValue({ id: 3, name: '3AAA' })).toEqual('_3AAA')
