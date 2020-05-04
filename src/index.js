@@ -7,20 +7,16 @@ const transform = require('./transform')
 /* eslint-disable-next-line import/no-absolute-path */
 const stableIDs = require('/Users/alkurbatov/Library/Application Support/Blizzard/StarCraft II/stableid.json')
 
-function dumpEnum(src, dst) {
-  const sorted = _.sortBy(src, ['name', 'id'])
-
-  for (let i = 0; i < sorted.length; i += 1) {
-    const { id } = sorted[i]
-    const name = transform.escapeEnumValue({ ...sorted[i] })
-
-    fs.appendFileSync(dst, `    ${name} = ${id},\n`)
-  }
-}
-
 function generateEnum(src, enumName, dst) {
   fs.appendFileSync(dst, `enum class ${enumName} {\n`)
-  dumpEnum(src, dst)
+
+  const transformed = src.map(transform.escapeName)
+  const sorted = _.sortBy(transformed, ['name', 'id'])
+
+  sorted.forEach(({name, id}) => {
+    fs.appendFileSync(dst, `    ${name} = ${id},\n`)
+  })
+
   fs.appendFileSync(dst, '};\n')
 }
 

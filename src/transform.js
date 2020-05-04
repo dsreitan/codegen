@@ -5,14 +5,14 @@ const protossUnits = new Set(units.Protoss)
 const terranUnits = new Set(units.Terran)
 const zergUnits = new Set(units.Zerg)
 
-exports.escapeEnumValue = ({ id, name }) => {
+exports.escapeName = ({ id, name }) => {
   let escapedName = name
 
   if (id === 0) escapedName = 'INVALID'
 
   if (name[0] >= '0' && name[0] <= '9') escapedName = `_${name}`
 
-  return escapedName.toUpperCase().replace(/ /g, '_')
+  return { id, name: escapedName.toUpperCase().replace(/ /g, '_') }
 }
 
 exports.renameForCompatibility = (it) => {
