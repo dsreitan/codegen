@@ -29,6 +29,11 @@ function generateUnits(src, dst) {
   generateEnum(transformed, 'UNIT_TYPEID', dst)
 }
 
+function generateAbilities(src, dst) {
+  const transformed = src.filter((it) => it.buttonname).map(transform.pickAbilityName)
+  generateEnum(transformed, 'ABILITY_ID', dst)
+}
+
 function main() {
   const dst = fs.openSync('./sc2_typeenums.h', 'w')
 
@@ -56,6 +61,9 @@ typedef SC2Type<EFFECT_ID> EffectID;
   )
 
   generateUnits(stableIDs.Units, dst)
+  fs.appendFileSync(dst, '\n')
+
+  generateAbilities(stableIDs.Abilities, dst)
   fs.appendFileSync(dst, '\n')
 
   generateEnum(stableIDs.Upgrades, 'UPGRADE_ID', dst)
