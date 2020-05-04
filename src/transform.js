@@ -8,13 +8,11 @@ const zergUnits = new Set(units.Zerg)
 exports.escapeEnumValue = ({ id, name }) => {
   let escapedName = name
 
-  // NOTE (alkurbatov): We use 'INVALID' instead.
   if (id === 0) escapedName = 'INVALID'
 
-  // NOTE (alkurbatov): Some types start with a number.
   if (name[0] >= '0' && name[0] <= '9') escapedName = `_${name}`
 
-  return escapedName.toUpperCase()
+  return escapedName.toUpperCase().replace(/ /g, '_')
 }
 
 exports.renameForCompatibility = (it) => {

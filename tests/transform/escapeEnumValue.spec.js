@@ -5,11 +5,16 @@ test('Name is converted to uppercase', () => {
   expect(escapeEnumValue({ id: 1, name: 'MarineShield' })).toEqual('MARINESHIELD')
 })
 
+test('Replace spaces with underscores', () => {
+  expect(escapeEnumValue({ id: 1, name: 'Stim Pack' })).toEqual('STIM_PACK')
+  expect(escapeEnumValue({ id: 1, name: 'Zerg Infestation Pit' })).toEqual('ZERG_INFESTATION_PIT')
+})
+
 test('Transform id == 0 to INVALID', () => {
   expect(escapeEnumValue({ id: 0, name: 'xxx' })).toEqual('INVALID')
 })
 
-test('Escape with _ all entries starting from a number', () => {
+test('Escape with underscore all entries starting from a number', () => {
   expect(escapeEnumValue({ id: 1, name: '1AAA' })).toEqual('_1AAA')
   expect(escapeEnumValue({ id: 2, name: '2AAA' })).toEqual('_2AAA')
   expect(escapeEnumValue({ id: 3, name: '3AAA' })).toEqual('_3AAA')
