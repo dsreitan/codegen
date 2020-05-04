@@ -15,17 +15,17 @@ exports.escapeName = ({ id, name }) => {
   return { id, name: escapedName.toUpperCase().replace(/ /g, '_') }
 }
 
-exports.renameForCompatibility = (it) => {
-  let name = it.name.toUpperCase()
+exports.renameForCompatibility = ({ id, name }) => {
+  let newName = name
 
   // NOTE (alkurbatov): We need these prefixes for backward compatibility
   // with older versions of the API.
-  if (neutralUnits.has(name)) name = `NEUTRAL_${name}`
-  else if (protossUnits.has(name)) name = `PROTOSS_${name}`
-  else if (terranUnits.has(name)) name = `TERRAN_${name}`
-  else if (zergUnits.has(name)) name = `ZERG_${name}`
+  if (neutralUnits.has(newName)) newName = `Neutral_${name}`
+  else if (protossUnits.has(newName)) newName = `Protoss_${name}`
+  else if (terranUnits.has(newName)) newName = `Terran_${name}`
+  else if (zergUnits.has(newName)) newName = `Zerg_${name}`
 
-  return { id: it.id, name }
+  return { id, name: newName }
 }
 
 exports.pickAbilityName = ({ id, name, buttonname, friendlyname }) => {

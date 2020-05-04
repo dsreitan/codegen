@@ -13,7 +13,7 @@ function generateEnum(src, enumName, dst) {
   const transformed = src.map(transform.escapeName)
   const sorted = _.sortBy(transformed, ['name', 'id'])
 
-  sorted.forEach(({name, id}) => {
+  sorted.forEach(({ name, id }) => {
     fs.appendFileSync(dst, `    ${name} = ${id},\n`)
   })
 
