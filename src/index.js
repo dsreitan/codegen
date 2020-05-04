@@ -1,5 +1,4 @@
 const fs = require('fs')
-const { EOL } = require('os')
 const _ = require('lodash')
 
 const transform = require('./transform')
@@ -15,14 +14,14 @@ function dumpEnum(src, dst) {
     const { id } = sorted[i]
     const name = transform.escapeEnumValue({ ...sorted[i] })
 
-    fs.appendFileSync(dst, `    ${name} = ${id},${EOL}`)
+    fs.appendFileSync(dst, `    ${name} = ${id},\n`)
   }
 }
 
 function generateEnum(src, enumName, dst) {
-  fs.appendFileSync(dst, `enum class ${enumName} {${EOL}`)
+  fs.appendFileSync(dst, `enum class ${enumName} {\n`)
   dumpEnum(src, dst)
-  fs.appendFileSync(dst, `};${EOL}`)
+  fs.appendFileSync(dst, '};\n')
 }
 
 function generateUnits(src, dst) {
@@ -33,56 +32,58 @@ function generateUnits(src, dst) {
 function main() {
   const dst = fs.openSync('./sc2_typeenums.h', 'w')
 
-  fs.appendFileSync(dst, `#pragma once${EOL}`)
-  fs.appendFileSync(dst, EOL)
-  fs.appendFileSync(dst, `#include "sc2_types.h"${EOL}`)
-  fs.appendFileSync(dst, EOL)
-  fs.appendFileSync(dst, `namespace sc2 {${EOL}`)
-  fs.appendFileSync(dst, `enum class UNIT_TYPEID;${EOL}`)
-  fs.appendFileSync(dst, `enum class ABILITY_ID;${EOL}`)
-  fs.appendFileSync(dst, `enum class UPGRADE_ID;${EOL}`)
-  fs.appendFileSync(dst, `enum class BUFF_ID;${EOL}`)
-  fs.appendFileSync(dst, `enum class EFFECT_ID;${EOL}`)
-  fs.appendFileSync(dst, `typedef SC2Type<UNIT_TYPEID> UnitTypeID;${EOL}`)
-  fs.appendFileSync(dst, `typedef SC2Type<ABILITY_ID> AbilityID;${EOL}`)
-  fs.appendFileSync(dst, `typedef SC2Type<UPGRADE_ID> UpgradeID;${EOL}`)
-  fs.appendFileSync(dst, `typedef SC2Type<BUFF_ID> BuffID;${EOL}`)
-  fs.appendFileSync(dst, `typedef SC2Type<EFFECT_ID> EffectID;${EOL}`)
-  fs.appendFileSync(dst, EOL)
+  fs.appendFileSync(
+    dst,
+    `
+#pragma once
+
+#include "sc2_types.h"
+
+namespace sc2 {
+enum class UNIT_TYPEID;
+enum class ABILITY_ID;
+enum class UPGRADE_ID;
+enum class BUFF_ID;
+enum class EFFECT_ID;
+
+typedef SC2Type<UNIT_TYPEID> UnitTypeID;
+typedef SC2Type<ABILITY_ID> AbilityID;
+typedef SC2Type<UPGRADE_ID> UpgradeID;
+typedef SC2Type<BUFF_ID> BuffID;
+typedef SC2Type<EFFECT_ID> EffectID;
+
+`
+  )
 
   generateUnits(stableIDs.Units, dst)
-  fs.appendFileSync(dst, EOL)
+  fs.appendFileSync(dst, '\n')
 
   generateEnum(stableIDs.Upgrades, 'UPGRADE_ID', dst)
-  fs.appendFileSync(dst, EOL)
+  fs.appendFileSync(dst, '\n')
 
   generateEnum(stableIDs.Buffs, 'BUFF_ID', dst)
-  fs.appendFileSync(dst, EOL)
+  fs.appendFileSync(dst, '\n')
 
   generateEnum(stableIDs.Effects, 'EFFECT_ID', dst)
-  fs.appendFileSync(dst, EOL)
+  fs.appendFileSync(dst, '\n')
 
-  fs.appendFileSync(dst, `//! Converts a UNIT_TYPEID into a string of the same name.${EOL}`)
-  fs.appendFileSync(dst, `const char* UnitTypeToName(UnitTypeID unit_type);${EOL}`)
+  fs.appendFileSync(
+    dst,
+    `
+//! Converts a UNIT_TYPEID into a string of the same name.
+const char* UnitTypeToName(UnitTypeID unit_type);
 
-  fs.appendFileSync(dst, EOL)
-  fs.appendFileSync(dst, `//! Converts a ABILITY_ID into a string of the same name.${EOL}`)
-  fs.appendFileSync(dst, `const char* AbilityTypeToName(AbilityID ability_type);${EOL}`)
+//! Converts a UPGRADE_ID into a string of the same name.
+const char* UpgradeIDToName(UpgradeID upgrade_id);
 
-  fs.appendFileSync(dst, EOL)
-  fs.appendFileSync(dst, `//! Converts a UPGRADE_ID into a string of the same name.${EOL}`)
-  fs.appendFileSync(dst, `const char* UpgradeIDToName(UpgradeID upgrade_id);${EOL}`)
+//! Converts a BUFF_ID into a string of the same name.
+const char* BuffIDToName(BuffID buff_id);
 
-  fs.appendFileSync(dst, EOL)
-  fs.appendFileSync(dst, `//! Converts a BUFF_ID into a string of the same name.${EOL}`)
-  fs.appendFileSync(dst, `const char* BuffIDToName(BuffID buff_id);${EOL}`)
-
-  fs.appendFileSync(dst, EOL)
-  fs.appendFileSync(dst, `//! Converts a EFFECT_ID into a string of the same name.${EOL}`)
-  fs.appendFileSync(dst, `const char* EffectIDToName(EffectID buff_id);${EOL}`)
-
-  fs.appendFileSync(dst, EOL)
-  fs.appendFileSync(dst, `}  // namespace sc2${EOL}`)
+//! Converts a EFFECT_ID into a string of the same name.
+const char* EffectIDToName(EffectID buff_id);
+}  // namespace sc2
+`
+  )
 
   fs.closeSync(dst)
 }
