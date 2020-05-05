@@ -85,6 +85,9 @@ typedef SC2Type<EFFECT_ID> EffectID;
 //! Converts a UNIT_TYPEID into a string of the same name.
 const char* UnitTypeToName(UnitTypeID unit_type);
 
+//! Converts a ABILITY_ID into a string of the same name.
+const char* AbilityTypeToName(AbilityID ability_type);
+
 //! Converts a UPGRADE_ID into a string of the same name.
 const char* UpgradeIDToName(UpgradeID upgrade_id);
 
