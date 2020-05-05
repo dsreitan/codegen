@@ -28,10 +28,10 @@ exports.renameForCompatibility = ({ id, name }) => {
   return { id, name: newName }
 }
 
-exports.pickAbilityName = ({ id, name, buttonname, friendlyname }) => {
-  if (friendlyname) return { id, name: friendlyname }
+exports.pickAbilityName = ({ id, name, buttonname, friendlyname, index }) => {
+  if (friendlyname) return { id, name: friendlyname, index }
 
-  if (name) return { id, name: `${name} ${buttonname}` }
+  if (name) return { id, name: `${name} ${buttonname}`, index }
 
-  return { id, name: buttonname }
+  return { id, name: buttonname, index }
 }

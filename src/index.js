@@ -1,33 +1,18 @@
 const fs = require('fs')
-const _ = require('lodash')
-
-const transform = require('./transform')
+const generators = require('./generators')
 
 // FIXME (alkurbatov): Works for OS X only.
 /* eslint-disable-next-line import/no-absolute-path */
 const stableIDs = require('/Users/alkurbatov/Library/Application Support/Blizzard/StarCraft II/stableid.json')
 
-function generateEnum(src, enumName, dst) {
+function dumpEnum(src, enumName, dst) {
   fs.appendFileSync(dst, `enum class ${enumName} {\n`)
 
-  const transformed = src.map(transform.escapeName)
-  const sorted = _.sortBy(transformed, ['name', 'id'])
-
-  sorted.forEach(({ name, id }) => {
+  src.forEach(({ name, id }) => {
     fs.appendFileSync(dst, `    ${name} = ${id},\n`)
   })
 
-  fs.appendFileSync(dst, '};\n')
-}
-
-function generateUnits(src, dst) {
-  const transformed = src.map(transform.renameForCompatibility)
-  generateEnum(transformed, 'UNIT_TYPEID', dst)
-}
-
-function generateAbilities(src, dst) {
-  const transformed = src.filter((it) => it.buttonname).map(transform.pickAbilityName)
-  generateEnum(transformed, 'ABILITY_ID', dst)
+  fs.appendFileSync(dst, '};\n\n')
 }
 
 function main() {
@@ -64,20 +49,20 @@ typedef SC2Type<EFFECT_ID> EffectID;
 `
   )
 
-  generateUnits(stableIDs.Units, dst)
-  fs.appendFileSync(dst, '\n')
+  const units = generators.generateUnits(stableIDs.Units)
+  dumpEnum(units, 'UNIT_TYPEID', dst)
 
-  generateAbilities(stableIDs.Abilities, dst)
-  fs.appendFileSync(dst, '\n')
+  const abilities = generators.generateAbilities(stableIDs.Abilities)
+  dumpEnum(abilities, 'ABILITY_ID', dst)
 
-  generateEnum(stableIDs.Upgrades, 'UPGRADE_ID', dst)
-  fs.appendFileSync(dst, '\n')
+  const upgrades = generators.generateEnum(stableIDs.Upgrades)
+  dumpEnum(upgrades, 'UPGRADE_ID', dst)
 
-  generateEnum(stableIDs.Buffs, 'BUFF_ID', dst)
-  fs.appendFileSync(dst, '\n')
+  const buffs = generators.generateEnum(stableIDs.Buffs)
+  dumpEnum(buffs, 'BUFF_ID', dst)
 
-  generateEnum(stableIDs.Effects, 'EFFECT_ID', dst)
-  fs.appendFileSync(dst, '\n')
+  const effects = generators.generateEnum(stableIDs.Effects)
+  dumpEnum(effects, 'EFFECT_ID', dst)
 
   fs.appendFileSync(
     dst,
