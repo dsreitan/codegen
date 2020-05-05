@@ -55,13 +55,13 @@ typedef SC2Type<EFFECT_ID> EffectID;
   const abilities = generators.generateAbilities(stableIDs.Abilities)
   dumpEnum(abilities, 'ABILITY_ID', dst)
 
-  const upgrades = generators.generateEnum(stableIDs.Upgrades)
+  const upgrades = generators.generateUpgrades(stableIDs.Upgrades)
   dumpEnum(upgrades, 'UPGRADE_ID', dst)
 
-  const buffs = generators.generateEnum(stableIDs.Buffs)
+  const buffs = generators.generateBuffs(stableIDs.Buffs)
   dumpEnum(buffs, 'BUFF_ID', dst)
 
-  const effects = generators.generateEnum(stableIDs.Effects)
+  const effects = generators.generateEffects(stableIDs.Effects)
   dumpEnum(effects, 'EFFECT_ID', dst)
 
   fs.appendFileSync(
