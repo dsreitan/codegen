@@ -29,9 +29,26 @@ exports.renameForCompatibility = ({ id, name }) => {
 }
 
 exports.pickAbilityName = ({ id, name, buttonname, friendlyname, index }) => {
-  if (friendlyname) return { id, name: friendlyname, index }
+  if (friendlyname && friendlyname.match(
+    '^(Behavior|Build|Cancel|CancelSlot|Effect|Halt|Harvest|Land|Lift|Morph|Rally|Research|Train) '
+  ))
+    return { id, name: friendlyname, index }
 
-  if (name) return { id, name: `${name} ${buttonname}`, index }
+  if (friendlyname && friendlyname.match('^(Load|Unload)'))
+    return { id, name: friendlyname, index }
 
-  return { id, name: buttonname, index }
+  if (!name) return { id, name: buttonname, index }
+
+  if (name.match(/^(Protoss|Terran|Zerg)Build$/))
+    return { id, name: `Build_${buttonname}`, index }
+
+  let res = name.match(/(Research|Train)$/)
+  if (res)
+    return { id, name: `${res[1]}_${buttonname}`, index }
+
+  res = name.match(/^(Morph|General|Hallucination)/)
+  if (res)
+    return { id, name: `${res[1]}_${buttonname}`, index }
+
+  return { id, name: `${name} ${buttonname}`, index }
 }

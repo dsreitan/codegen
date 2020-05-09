@@ -1,28 +1,36 @@
 const { generateAbilities } = require('generators')
 
-test('Only one version of unloadunit is left', () => {
+test('Abilities with empty buttonname are ignored unless friendlyname starts with UnloadUnit', () => {
   const abilities = [
     {
-      id: 3670,
-      name: 'TransportUnloadUnit',
-      buttonname: 'TransportUnloadUnit',
-      friendlyname: 'UnloadUnit',
-      index: 0,
+      id: 149,
+      name: 'HallucinationColossus',
+      buttonname: '',
+      index: 1,
     },
     {
-      id: 3796,
-      name: 'GeneralUnloadUnit',
-      buttonname: 'UnloadUnit',
-      friendlyname: 'UnloadUnit',
-      index: 0,
+      id: 397,
+      remapid: 3796,
+      name: 'MedivacTransport',
+      buttonname: '',
+      friendlyname: 'UnloadUnit Medivac',
+      index: 3,
     },
   ]
 
-  expect(generateAbilities(abilities)).toEqual([{ id: 3796, name: 'UNLOADUNIT', index: 0 }])
+  expect(generateAbilities(abilities)).toEqual([
+    { id: 397, name: 'UNLOADUNIT_MEDIVAC', index: 3 },
+  ])
 })
 
 test('Only unique items kept in the list', () => {
   const abilities = [
+    {
+      id: 2839,
+      name: 'AdvancedConstruction',
+      buttonname: 'Cancel',
+      index: 0,
+    },
     {
       id: 2840,
       name: 'AdvancedConstruction',
@@ -37,5 +45,5 @@ test('Only unique items kept in the list', () => {
     },
   ]
 
-  expect(generateAbilities(abilities)).toEqual([{ id: 2840, name: 'ADVANCEDCONSTRUCTION_CANCEL', index: 0 }])
+  expect(generateAbilities(abilities)).toEqual([{ id: 2839, name: 'ADVANCEDCONSTRUCTION_CANCEL', index: 0 }])
 })
