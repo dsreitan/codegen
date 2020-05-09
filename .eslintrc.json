@@ -47,6 +47,7 @@
       }
     ],
     "no-continue": "off",
+    "nonblock-statement-body-position": "off",
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "space-before-function-paren": [
