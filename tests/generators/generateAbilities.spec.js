@@ -1,6 +1,6 @@
 const { generateAbilities } = require('generators')
 
-test('Abilities with empty buttonname are ignored unless friendlyname starts with UnloadUnit', () => {
+test('Abilities with empty buttonname are ignored unless remapid is set', () => {
   const abilities = [
     {
       id: 149,

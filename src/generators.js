@@ -15,6 +15,10 @@ exports.generateAbilities = (src) => {
   const transformed = src
     .filter((it) => it.buttonname || it.remapid)
     .map(transform.pickAbilityName)
+
+  // NOTE (alkurbatov): Another one ability kept for backward compatibility.
+  transformed.push({ id: 3674, name: 'ATTACK' })
+
   const generated = generateEnum(transformed)
 
   // NOTE (alkurbatov): Some abilities have equal names, but different IDs.

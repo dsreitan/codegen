@@ -1,5 +1,8 @@
+const abilities = require('./abilities')
 const units = require('./units')
 
+const abilityEffects = new Set(abilities.Effects)
+const abilityMorphs = new Set(abilities.Morphs)
 const neutralUnits = new Set(units.Neutral)
 const protossUnits = new Set(units.Protoss)
 const terranUnits = new Set(units.Terran)
@@ -30,25 +33,52 @@ exports.renameForCompatibility = ({ id, name }) => {
 
 exports.pickAbilityName = ({ id, name, buttonname, friendlyname, index }) => {
   if (friendlyname && friendlyname.match(
-    '^(Behavior|Build|Cancel|CancelSlot|Effect|Halt|Harvest|Land|Lift|Morph|Rally|Research|Train) '
+    /* eslint-disable-next-line max-len */
+    '^(Attack|Behavior|Build|Cancel|CancelSlot|Effect|Halt|Hallucination|Harvest|Land|Lift|Morph|Rally|Research|Stop|Train|TrainWarp) '
   ))
     return { id, name: friendlyname, index }
 
-  if (friendlyname && friendlyname.match('^(Load|Unload)'))
+  if (friendlyname && friendlyname.match('^(Burrow|Load|Unload)'))
     return { id, name: friendlyname, index }
 
+  if (abilityEffects.has(buttonname))
+    return { id, name: `Effect_${buttonname}`, index }
+
+  if (abilityMorphs.has(buttonname))
+    return { id, name: `Morph_${buttonname}`, index }
+
+  let res = buttonname.match(/^(Raven)?Research(.*)$/)
+  if (res)
+    return { id, name: `Research_${res[2]}`, index }
+
+  if (buttonname.startsWith('Attack'))
+    return { id, name: `Attack_${buttonname}`, index }
+
   if (!name) return { id, name: buttonname, index }
+
+  if (name === 'WarpGateTrain')
+    return { id, name: `TrainWarp_${buttonname}`, index }
 
   if (name.match(/^(Protoss|Terran|Zerg)Build$/))
     return { id, name: `Build_${buttonname}`, index }
 
-  let res = name.match(/(Research|Train)$/)
+  res = name.match(/(Research|Train)$/)
   if (res)
     return { id, name: `${res[1]}_${buttonname}`, index }
 
-  res = name.match(/^(Morph|General|Hallucination)/)
+  res = name.match(/^(NexusTrain|Train)/)
+  if (res)
+    return { id, name: `Train_${buttonname}`, index }
+
+  res = name.match(/^(Morph|General)/)
   if (res)
     return { id, name: `${res[1]}_${buttonname}`, index }
+
+  if (name.startsWith('UpgradeTo'))
+    return { id, name: `Morph_${buttonname}`, index }
+
+  if (name === buttonname)
+    return { id, name: `${buttonname}`, index }
 
   return { id, name: `${name} ${buttonname}`, index }
 }
