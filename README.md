@@ -1,5 +1,6 @@
 # Codegen
 
+![CI Status](https://github.com/cpp-sc2/codegen/workflows/Node.js%20CI/badge.svg)
 [![Code Climate](https://codeclimate.com/github/cpp-sc2/codegen/badges/gpa.svg)](https://codeclimate.com/github/cpp-sc2/codegen)
 [![Test Coverage](https://codeclimate.com/github/cpp-sc2/codegen/badges/coverage.svg)](https://codeclimate.com/github/cpp-sc2/codegen/coverage)
 
