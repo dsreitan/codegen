@@ -19,6 +19,7 @@ test('Abilities with empty buttonname are ignored unless remapid is set', () => 
   ]
 
   expect(generateAbilities(abilities)).toEqual([
+    { id: 3674, index: undefined, name: 'ATTACK' },
     { id: 397, name: 'UNLOADUNIT_MEDIVAC', index: 3 },
   ])
 })
@@ -45,5 +46,8 @@ test('Only unique items kept in the list', () => {
     },
   ]
 
-  expect(generateAbilities(abilities)).toEqual([{ id: 2839, name: 'ADVANCEDCONSTRUCTION_CANCEL', index: 0 }])
+  expect(generateAbilities(abilities)).toEqual([
+    { id: 2839, name: 'ADVANCEDCONSTRUCTION_CANCEL', index: 0 },
+    { id: 3674, index: undefined, name: 'ATTACK' },
+  ])
 })
