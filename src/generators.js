@@ -12,9 +12,7 @@ exports.generateUnits = (src) => {
 }
 
 exports.generateAbilities = (src) => {
-  const transformed = src
-    .filter((it) => it.buttonname || it.remapid)
-    .map(transform.pickAbilityName)
+  const transformed = src.filter((it) => it.buttonname || it.remapid).map(transform.pickAbilityName)
 
   // NOTE (alkurbatov): Another one ability kept for backward compatibility.
   transformed.push({ id: 3674, name: 'ATTACK' })
@@ -36,4 +34,7 @@ exports.generateUpgrades = (src) => {
 
 exports.generateBuffs = (src) => generateEnum(src)
 
-exports.generateEffects = (src) => generateEnum(src)
+exports.generateEffects = (src) => {
+  const transformed = src.map(({ id, name, friendlyName }) => ({ id, name: friendlyName || name }))
+  return generateEnum(transformed)
+}
