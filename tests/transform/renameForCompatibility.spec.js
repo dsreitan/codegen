@@ -268,3 +268,7 @@ test('Zerg units are renamed to be compatible with the old API', () => {
   expect(renameForCompatibility({ id: 1, name: 'Zergling' }).name).toEqual('Zerg_Zergling')
   expect(renameForCompatibility({ id: 1, name: 'ZerglingBurrowed' }).name).toEqual('Zerg_ZerglingBurrowed')
 })
+
+test('A unit not included in any subset is not renamed', () => {
+  expect(renameForCompatibility({ id: 1, name: 'Ball' }).name).toEqual('Ball')
+})
