@@ -13,7 +13,7 @@
   "scripts": {
     "clean": "rimraf sc2_*",
     "start": "npm run clean && node src/index.js",
-    "lint": "eslint ./src ./tests",
+    "lint": "eslint ./src ./test",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
