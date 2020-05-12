@@ -39,6 +39,7 @@ test('Neutral units are renamed to be compatible with the old API', () => {
   )
   expect(renameForCompatibility({ id: 1, name: 'DebrisRampLeft' }).name).toEqual('Neutral_DebrisRampLeft')
   expect(renameForCompatibility({ id: 1, name: 'DebrisRampRight' }).name).toEqual('Neutral_DebrisRampRight')
+  expect(renameForCompatibility({ id: 1, name: 'DestructibleCityDebris6x6' }).name).toEqual('Neutral_DestructibleCityDebris6x6')
   expect(renameForCompatibility({ id: 1, name: 'DestructibleDebris6x6' }).name).toEqual('Neutral_DestructibleDebris6x6')
   expect(renameForCompatibility({ id: 1, name: 'DestructibleDebrisRampDiagonalHugeBLUR' }).name).toEqual(
     'Neutral_DestructibleDebrisRampDiagonalHugeBLUR'
@@ -55,6 +56,7 @@ test('Neutral units are renamed to be compatible with the old API', () => {
   expect(renameForCompatibility({ id: 1, name: 'LabMineralField' }).name).toEqual('Neutral_LabMineralField')
   expect(renameForCompatibility({ id: 1, name: 'LabMineralField750' }).name).toEqual('Neutral_LabMineralField750')
   expect(renameForCompatibility({ id: 1, name: 'MineralField' }).name).toEqual('Neutral_MineralField')
+  expect(renameForCompatibility({ id: 1, name: 'MineralField450' }).name).toEqual('Neutral_MineralField450')
   expect(renameForCompatibility({ id: 1, name: 'MineralField750' }).name).toEqual('Neutral_MineralField750')
   expect(renameForCompatibility({ id: 1, name: 'ProtossVespeneGeyser' }).name).toEqual('Neutral_ProtossVespeneGeyser')
   expect(renameForCompatibility({ id: 1, name: 'PurifierMineralField' }).name).toEqual('Neutral_PurifierMineralField')
@@ -108,6 +110,7 @@ test('Protoss units are renamed to be compatible with the old API', () => {
   expect(renameForCompatibility({ id: 1, name: 'MothershipCore' }).name).toEqual('Protoss_MothershipCore')
   expect(renameForCompatibility({ id: 1, name: 'Nexus' }).name).toEqual('Protoss_Nexus')
   expect(renameForCompatibility({ id: 1, name: 'Observer' }).name).toEqual('Protoss_Observer')
+  expect(renameForCompatibility({ id: 1, name: 'ObserverSiegeMode' }).name).toEqual('Protoss_ObserverSiegeMode')
   expect(renameForCompatibility({ id: 1, name: 'Oracle' }).name).toEqual('Protoss_Oracle')
   expect(renameForCompatibility({ id: 1, name: 'OracleStasisTrap' }).name).toEqual('Protoss_OracleStasisTrap')
   expect(renameForCompatibility({ id: 1, name: 'Phoenix' }).name).toEqual('Protoss_Phoenix')
@@ -243,6 +246,7 @@ test('Zerg units are renamed to be compatible with the old API', () => {
   expect(renameForCompatibility({ id: 1, name: 'OverlordCocoon' }).name).toEqual('Zerg_OverlordCocoon')
   expect(renameForCompatibility({ id: 1, name: 'OverlordTransport' }).name).toEqual('Zerg_OverlordTransport')
   expect(renameForCompatibility({ id: 1, name: 'Overseer' }).name).toEqual('Zerg_Overseer')
+  expect(renameForCompatibility({ id: 1, name: 'OverseerSiegeMode' }).name).toEqual('Zerg_OverseerSiegeMode')
   expect(renameForCompatibility({ id: 1, name: 'ParasiticBombDummy' }).name).toEqual('Zerg_ParasiticBombDummy')
   expect(renameForCompatibility({ id: 1, name: 'Queen' }).name).toEqual('Zerg_Queen')
   expect(renameForCompatibility({ id: 1, name: 'QueenBurrowed' }).name).toEqual('Zerg_QueenBurrowed')
@@ -263,6 +267,7 @@ test('Zerg units are renamed to be compatible with the old API', () => {
     'Zerg_TransportOverlordCocoon'
   )
   expect(renameForCompatibility({ id: 1, name: 'Ultralisk' }).name).toEqual('Zerg_Ultralisk')
+  expect(renameForCompatibility({ id: 1, name: 'UltraliskBurrowed' }).name).toEqual('Zerg_UltraliskBurrowed')
   expect(renameForCompatibility({ id: 1, name: 'UltraliskCavern' }).name).toEqual('Zerg_UltraliskCavern')
   expect(renameForCompatibility({ id: 1, name: 'Viper' }).name).toEqual('Zerg_Viper')
   expect(renameForCompatibility({ id: 1, name: 'Zergling' }).name).toEqual('Zerg_Zergling')
