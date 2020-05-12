@@ -39,7 +39,9 @@ test('Neutral units are renamed to be compatible with the old API', () => {
   )
   expect(renameForCompatibility({ id: 1, name: 'DebrisRampLeft' }).name).toEqual('Neutral_DebrisRampLeft')
   expect(renameForCompatibility({ id: 1, name: 'DebrisRampRight' }).name).toEqual('Neutral_DebrisRampRight')
-  expect(renameForCompatibility({ id: 1, name: 'DestructibleCityDebris6x6' }).name).toEqual('Neutral_DestructibleCityDebris6x6')
+  expect(renameForCompatibility({ id: 1, name: 'DestructibleCityDebris6x6' }).name).toEqual(
+    'Neutral_DestructibleCityDebris6x6'
+  )
   expect(renameForCompatibility({ id: 1, name: 'DestructibleDebris6x6' }).name).toEqual('Neutral_DestructibleDebris6x6')
   expect(renameForCompatibility({ id: 1, name: 'DestructibleDebrisRampDiagonalHugeBLUR' }).name).toEqual(
     'Neutral_DestructibleDebrisRampDiagonalHugeBLUR'
