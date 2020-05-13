@@ -1,10 +1,6 @@
 const fs = require('fs')
 const generators = require('./generators')
 
-// FIXME (alkurbatov): Works for OS X only.
-/* eslint-disable-next-line import/no-absolute-path */
-const stableIDs = require('/Users/alkurbatov/Library/Application Support/Blizzard/StarCraft II/stableid.json')
-
 function dumpEnum(src, enumName, dst) {
   fs.appendFileSync(dst, `enum class ${enumName} {\n`)
 
@@ -129,6 +125,11 @@ namespace sc2 {
 }
 
 function main() {
+  const args = process.argv.slice(2)
+
+  const rawdata = fs.readFileSync(args[0])
+  const stableIDs = JSON.parse(rawdata)
+
   const units = generators.generateUnits(stableIDs.Units)
   const abilities = generators.generateAbilities(stableIDs.Abilities)
   const upgrades = generators.generateUpgrades(stableIDs.Upgrades)
