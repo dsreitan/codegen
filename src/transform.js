@@ -32,53 +32,44 @@ exports.renameForCompatibility = ({ id, name }) => {
 }
 
 exports.pickAbilityName = ({ id, name, buttonname, friendlyname, index }) => {
-  if (friendlyname && friendlyname.match(
-    /* eslint-disable-next-line max-len */
-    '^(Attack|Behavior|Build|Cancel|CancelSlot|Effect|Halt|Hallucination|Harvest|Land|Lift|Morph|Rally|Research|Stop|Train|TrainWarp) '
-  ))
+  if (
+    friendlyname &&
+    friendlyname.match(
+      /* eslint-disable-next-line max-len */
+      '^(Attack|Behavior|Build|Cancel|CancelSlot|Effect|Halt|Hallucination|Harvest|Land|Lift|Morph|Rally|Research|Stop|Train|TrainWarp) '
+    )
+  )
     return { id, name: friendlyname, index }
 
-  if (friendlyname && friendlyname.match('^(Burrow|Load|Unload)'))
-    return { id, name: friendlyname, index }
+  if (friendlyname && friendlyname.match('^(Burrow|Load|Unload)')) return { id, name: friendlyname, index }
 
-  if (abilityEffects.has(buttonname))
-    return { id, name: `Effect_${buttonname}`, index }
+  if (abilityEffects.has(buttonname)) return { id, name: `Effect_${buttonname}`, index }
 
-  if (abilityMorphs.has(buttonname))
-    return { id, name: `Morph_${buttonname}`, index }
+  if (abilityMorphs.has(buttonname)) return { id, name: `Morph_${buttonname}`, index }
 
   let res = buttonname.match(/^(Raven)?Research(.*)$/)
-  if (res)
-    return { id, name: `Research_${res[2]}`, index }
+  if (res) return { id, name: `Research_${res[2]}`, index }
 
-  if (buttonname.startsWith('Attack'))
-    return { id, name: `Attack_${buttonname}`, index }
+  if (buttonname.startsWith('Attack')) return { id, name: `Attack_${buttonname}`, index }
 
   if (!name) return { id, name: buttonname, index }
 
-  if (name === 'WarpGateTrain')
-    return { id, name: `TrainWarp_${buttonname}`, index }
+  if (name === 'WarpGateTrain') return { id, name: `TrainWarp_${buttonname}`, index }
 
-  if (name.match(/^(Protoss|Terran|Zerg)Build$/))
-    return { id, name: `Build_${buttonname}`, index }
+  if (name.match(/^(Protoss|Terran|Zerg)Build$/)) return { id, name: `Build_${buttonname}`, index }
 
   res = name.match(/(Research|Train)$/)
-  if (res)
-    return { id, name: `${res[1]}_${buttonname}`, index }
+  if (res) return { id, name: `${res[1]}_${buttonname}`, index }
 
   res = name.match(/^(NexusTrain|Train)/)
-  if (res)
-    return { id, name: `Train_${buttonname}`, index }
+  if (res) return { id, name: `Train_${buttonname}`, index }
 
   res = name.match(/^(Morph|General)/)
-  if (res)
-    return { id, name: `${res[1]}_${buttonname}`, index }
+  if (res) return { id, name: `${res[1]}_${buttonname}`, index }
 
-  if (name.startsWith('UpgradeTo'))
-    return { id, name: `Morph_${buttonname}`, index }
+  if (name.startsWith('UpgradeTo')) return { id, name: `Morph_${buttonname}`, index }
 
-  if (name === buttonname)
-    return { id, name: `${buttonname}`, index }
+  if (name === buttonname) return { id, name: `${buttonname}`, index }
 
   return { id, name: `${name} ${buttonname}`, index }
 }

@@ -13,7 +13,7 @@
       }
     }
   },
-  "extends": ["airbnb-base"],
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -21,7 +21,7 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
-  "plugins": ["jest"],
+  "plugins": ["prettier", "jest"],
   "rules": {
     "comma-dangle": [
       "error",
@@ -46,8 +46,10 @@
         "ignoreUrls": true
       }
     ],
+    "no-console": "off",
     "no-continue": "off",
     "nonblock-statement-body-position": "off",
+    "prettier/prettier": "error",
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "space-before-function-paren": [
