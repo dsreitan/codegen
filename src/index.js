@@ -22,7 +22,7 @@ function dumpSwitch(src, enumName, dst) {
 }
 
 function dumpHeader({ units, abilities, upgrades, buffs, effects }) {
-  const dst = fs.openSync('./sc2_typeenums.h', 'w')
+  const dst = fs.openSync('./dist/sc2_typeenums.h', 'w')
 
   fs.appendFileSync(
     dst,
@@ -85,7 +85,7 @@ const char* EffectIDToName(EffectID id);
 }
 
 function dumpCPP({ units, abilities, upgrades, buffs, effects }) {
-  const dst = fs.openSync('./sc2_typeenums.cc', 'w')
+  const dst = fs.openSync('./dist/sc2_typeenums.cc', 'w')
 
   fs.appendFileSync(
     dst,
