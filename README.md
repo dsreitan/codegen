@@ -17,8 +17,11 @@ Code generation utility for Starcraft II. Produces list of type IDs taken from s
 # Install dependencies.
 $ npm install
 
-# Generate the code.
+# Generate the code using installed game.
 $ npm start "/Users/alkurbatov/Library/Application Support/Blizzard/StarCraft II/stableid.json"
+
+# Generate the code using one of saved ID files.
+$ npm start ./assets/4.10.2-stableid.json
 
 # Run tests
 $ npm test
