@@ -27,3 +27,7 @@ test('Escape with underscore all entries starting from a number', () => {
   expect(escapeName({ id: 14, name: '14AAA' }).name).toEqual('_14AAA')
   expect(escapeName({ id: 24, name: '24AAA' }).name).toEqual('_24AAA')
 })
+
+test('Escape with underscore all entries containing @', () => {
+  expect(escapeName({ id: 1967, name: 'LoadOutSpray@1' }).name).toEqual('LOADOUTSPRAY_1')
+})
