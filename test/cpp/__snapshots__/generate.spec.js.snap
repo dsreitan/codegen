@@ -15074,7 +15074,8 @@ namespace sc2 {
   "}
 
 ",
-  "}  // namespace sc2",
+  "}  // namespace sc2
+",
 ]
 `;
 
@@ -30272,7 +30273,8 @@ namespace sc2 {
   "}
 
 ",
-  "}  // namespace sc2",
+  "}  // namespace sc2
+",
 ]
 `;
 
@@ -45634,7 +45636,8 @@ namespace sc2 {
   "}
 
 ",
-  "}  // namespace sc2",
+  "}  // namespace sc2
+",
 ]
 `;
 
@@ -60996,7 +60999,8 @@ namespace sc2 {
   "}
 
 ",
-  "}  // namespace sc2",
+  "}  // namespace sc2
+",
 ]
 `;
 
@@ -76502,6 +76506,7 @@ namespace sc2 {
   "}
 
 ",
-  "}  // namespace sc2",
+  "}  // namespace sc2
+",
 ]
 `;

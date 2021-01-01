@@ -120,7 +120,7 @@ namespace sc2 {
   dumpSwitch(effects, 'EFFECT_ID', dst)
   fs.appendFileSync(dst, '}\n\n')
 
-  fs.appendFileSync(dst, '}  // namespace sc2')
+  fs.appendFileSync(dst, '}  // namespace sc2\n')
   fs.closeSync(dst)
 }
 
