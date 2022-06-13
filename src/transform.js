@@ -15,7 +15,7 @@ exports.escapeName = ({ id, name, index }) => {
 
   if (name[0] >= '0' && name[0] <= '9') escapedName = `_${name}`
 
-  return { id, name: escapedName.toUpperCase().replace(/[ @]/g, '_'), index }
+  return { id, name: escapedName.replace(/[ @]/g, '_'), index }
 }
 
 exports.renameForCompatibility = ({ id, name }) => {

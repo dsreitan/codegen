@@ -8,7 +8,8 @@ const generateEnum = (src) => {
 
 exports.generateUnits = (src) => {
   const transformed = src.map(transform.renameForCompatibility)
-  return generateEnum(transformed)
+  const units = generateEnum(transformed)
+  return _.uniqWith(units, (arrVal, othVal) => arrVal.name.toUpperCase() === othVal.name.toUpperCase())
 }
 
 exports.generateAbilities = (src) => {
